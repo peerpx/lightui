@@ -14,7 +14,7 @@ import {
 class Header extends React.Component {
     render() {
         return (
-            <div>
+            <header>
                 <Navbar color="white" light expand="md">
                     <NavbarBrand href="/"><span className="peerpx-head">Peer</span><span className="align-top peerpx-tail">px</span></NavbarBrand>
                     <Nav className="mr-auto" navbar>
@@ -34,7 +34,7 @@ class Header extends React.Component {
                         </NavItem>
                     </Nav>
                 </Navbar>
-            </div>
+            </header>
         );
     }
 }
