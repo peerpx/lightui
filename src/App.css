@@ -5,6 +5,10 @@ body {
     background-color: rgb(250, 250, 250);
 }
 
+.center {
+    text-align: center;
+}
+
 
 /* Brand */
 
@@ -19,4 +23,69 @@ body {
 main {
     padding: 1rem;
     min-height: 10rem;
+}
+
+footer {
+    padding-top: 1rem;
+    font-size: 0.9rem;
+    color: rgb(117, 117, 117);
+}
+
+footer h3 {
+    font-size: 0.9rem;
+    color: rgb(53, 53, 53);
+}
+
+footer a {
+    color: inherit;
+}
+
+footer a:hover {
+    text-decoration-line: none;
+    color: black;
+}
+
+footer hr {
+    margin-left: 5rem;
+    margin-right: 5rem;
+    border: none;
+    border-top: 1px solid rgb(231, 231, 231);
+    color: rgb(109, 109, 109);
+    overflow: visible;
+    text-align: center;
+    height: 15px;
+}
+
+footer ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+footer li {
+    margin-top: 1rem;
+}
+
+footer button {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+}
+
+@media (min-width: 768px) {
+    footer .social {
+        padding-left: 7rem;
+    }
+}
+
+@media (max-width: 768px) {
+    footer .social {
+        padding-top: 2rem;
+    }
+}
+
+
+/* Login */
+
+.card-login {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
 }
