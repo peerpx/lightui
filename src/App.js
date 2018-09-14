@@ -1,24 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons'
+
+import Home from './containers/Home'
+import NotFound from './containers/NotFound'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Bootstrap-theme.css';
 import './App.css';
 
-import Home from './containers/Home'
-
 library.add(fab, faCheckSquare, faCoffee)
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Home />
-      </div>
-    );
-  }
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
