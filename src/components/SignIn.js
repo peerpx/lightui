@@ -1,5 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import { Button, Card, CardTitle, Col, Form, FormGroup, Label, Input, Row, } from 'reactstrap'
+import { displayMsg, hideMsg } from "../redux/actions";
+
+
+const mapDispatchToProps = {
+    displayMsg,
+    hideMsg
+}
+
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -12,6 +22,11 @@ class SignIn extends React.Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
+
+    componentDidMount() {
+        this.props.displayMsg("danger", "Hello world")
+    }
+
 
     handleChange(e) {
         console.log('et alors !')
@@ -27,9 +42,9 @@ class SignIn extends React.Component {
             [name]: value
         })
     }
-    
+
     handleSubmit(e) {
-        e.preventDefault()    
+        e.preventDefault()
     }
 
     render() {
@@ -58,4 +73,4 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn;
+export default connect(null, mapDispatchToProps)(SignIn)
