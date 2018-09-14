@@ -6,9 +6,8 @@ import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Bootstrap-theme.css';
 import './App.css';
-import Header from './components/Header';
-import SignIn from './components/SignIn';
-import Footer from './components/Footer';
+
+import Home from './containers/Home'
 
 library.add(fab, faCheckSquare, faCoffee)
 
@@ -16,9 +15,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        <SignIn />
-        <Footer />
+        <Home />
       </div>
     );
   }
