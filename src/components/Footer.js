@@ -22,10 +22,10 @@ class Footer extends React.Component {
                                     <a href="https://mastodon.social/@peerpx"><FontAwesomeIcon icon={['fab', 'mastodon']} /> Mastodon</a>
                                 </li>
                                 <li>
-                                    <a href="https://mastodon.social/@peerpx"><FontAwesomeIcon icon={['fab', 'github']} /> Github</a>
+                                    <a href="https://github.com/peerpx"><FontAwesomeIcon icon={['fab', 'github']} /> Github</a>
                                 </li>
                                 <li>
-                                    <a href="https://mastodon.social/@peerpx"><FontAwesomeIcon icon={['fab', 'twitter']} /> Twitter</a>
+                                    <a href="https://twitter.com/peerpx"><FontAwesomeIcon icon={['fab', 'twitter']} /> Twitter</a>
                                 </li>
                             </ul>
                         </Col>
@@ -35,5 +35,4 @@ class Footer extends React.Component {
         )
     }
 }
-
 export default Footer;
