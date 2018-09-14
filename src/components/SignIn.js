@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Card, CardTitle, Col, Form, FormGroup, Label, Input, Row, } from 'reactstrap'
-const MainTodo = () => {
+const SignIn = () => {
     return (
         <main>
             <Row className="justify-content-center">
@@ -25,4 +25,4 @@ const MainTodo = () => {
     )
 }
 
-export default MainTodo;
+export default SignIn;
