@@ -82,6 +82,15 @@ footer button {
     }
 }
 
+/* msgbox */
+
+#msg-box {
+    z-index: 500;
+    position: fixed;
+    padding: 1rem;
+    width: 100%;
+}
+
 
 /* Login */
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Alert } from 'reactstrap'
+import { Alert, Row } from 'reactstrap'
 import { hideMsg } from '../redux/actions'
 
 
@@ -25,9 +25,12 @@ class MsgBox extends React.Component {
 
     render() {
         return (
-            <Alert color={this.props.color} isOpen={this.props.isOpen} toggle={this.onDismiss} >
-                {this.props.msg}
-            </Alert>
+            <div id="msg-box">
+                <Alert color={this.props.color} isOpen={this.props.isOpen} toggle={this.onDismiss} >
+                    {this.props.msg}
+                </Alert>
+            </div>
+
         )
     }
 }
