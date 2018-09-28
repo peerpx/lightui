@@ -44,16 +44,21 @@ client.interceptors.response.use(
         // default -> display raw error message (can be 
         // overrided by caller if it display another message)
         let msg = error.toString()
-        if (error.response && error.response.data && error.response.data.msg) {
-            msg = error.response.data.msg
+        if (error.response && error.response.data && error.response.data.message) {
+            msg = error.response.data.message
         }
         store.dispatch(displayMsg('danger', msg))
+        return Promise.reject(error)
     }
 )
 
 // sign in 
-export const authSignIn = (email, password) => {
-    return client.post('api/v1/user', { 'email': email, 'password': password })
+export const authSignIn = (username, email, password) => {
+    return client.post('user', { 'username': username, 'email': email, 'password': password })
 }
 
+// check username availability
+export const authUsernameIsAvailable = (username) => {
+    return client.get(`user/${username}/is-available`)
+}
 
