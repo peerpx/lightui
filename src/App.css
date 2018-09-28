@@ -91,6 +91,31 @@ footer button {
     width: 100%;
 }
 
+/* Loader */
+#loader {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 200;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.6;
+}
+
+#loaderImg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 15%;
+    height: 15%;
+    margin: auto;
+    z-index: 201;
+}
+
 
 /* Login */
 
