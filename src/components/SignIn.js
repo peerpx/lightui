@@ -24,20 +24,16 @@ class SignIn extends React.Component {
     }
 
     componentDidMount() {
-        this.props.displayMsg("danger", "Hello world")
+        //this.props.displayMsg("danger", "Hello world")
     }
 
 
     handleChange(e) {
-        console.log('et alors !')
         const name = e.target.name
         let value = e.target.value
         if (name === 'email') {
             value = value.toLowerCase()
         }
-
-        console.log(name)
-        console.log(value)
         this.setState({
             [name]: value
         })
@@ -56,12 +52,12 @@ class SignIn extends React.Component {
                             <CardTitle className="center">Create an account</CardTitle>
                             <Form onSubmit={this.handleSubmit}>
                                 <FormGroup>
-                                    <Label for="exampleEmail">Email</Label>
-                                    <Input type="email" name="email" id="email" placeholder="your email" value={this.state.email} onChange={this.handleChange} />
+                                    <Label for="inpEmail">Email</Label>
+                                    <Input type="email" name="email" id="inpEmail" placeholder="your email" value={this.state.email} onChange={this.handleChange} />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label for="examplePassword">Password</Label>
-                                    <Input type="password" name="password" id="password" placeholder="choose a password" value={this.state.password} onChange={this.handleChange} />
+                                    <Label for="inpPassword">Password</Label>
+                                    <Input type="password" name="password" id="inpPassword" placeholder="choose a password" value={this.state.password} onChange={this.handleChange} />
                                 </FormGroup>
                                 <Button color="primary">Sign Up !</Button>
                             </Form>
