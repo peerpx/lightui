@@ -49,25 +49,36 @@ class SignIn extends React.Component {
         )
     }
 
+    // username stuff
+    // when username input loose focus
+    handleInpUsernameOnBlur = () => {
+        if (this.validateUsername()){
+            this.checkUsernameAvailability()
+        }
+    }
+
     validateUsername = () => {
         // todo only alphanum
         // username
         if (this.state.username.length < 4) {
             this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: 'username should be at least 4 char long' })
-        } else {
-            // check availabilty
-            authUsernameIsAvailable(this.state.username)
-                .then((response) => {
-                    if (response.data.success) {
-                        this.setState({ inpUsernameIsValid: true, inpUsernameFeedback: '' })
-                    } else if (response.data.code === "usernameNotAvailable") {
-                        this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: 'Oh nooooo! that username is not available' })
-                    }
-                }).catch(() => {
-                    this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: '' })
-                })
-
+            return false
         }
+        return true
+    }
+
+    // check if username is available
+    checkUsernameAvailability = () => {
+        authUsernameIsAvailable(this.state.username)
+            .then((response) => {
+                if (response.data.success) {
+                    this.setState({ inpUsernameIsValid: true, inpUsernameFeedback: '' })
+                } else if (response.data.code === "usernameNotAvailable") {
+                    this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: 'Oh nooooo! that username is not available' })
+                }
+            }).catch(() => {
+                this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: '' })
+            })
     }
 
     handleSubmit = (e) => {
@@ -85,7 +96,7 @@ class SignIn extends React.Component {
                             <Form onSubmit={this.handleSubmit}>
                                 <FormGroup>
                                     <Label for="inpUsername">Username</Label>
-                                    <Input type="text" name="username" id="inpUsername" placeholder="wanted username" value={this.state.username} onChange={this.handleChange} valid={this.state.inpUsernameIsValid} invalid={!this.state.inpUsernameIsValid} />
+                                    <Input type="text" name="username" id="inpUsername" placeholder="wanted username" value={this.state.username} onChange={this.handleChange} onBlur={this.handleInpUsernameOnBlur} valid={this.state.inpUsernameIsValid} invalid={!this.state.inpUsernameIsValid} />
                                     <FormFeedback valid>Sweet! that username is available</FormFeedback>
                                     <FormFeedback>{this.state.inpUsernameFeedback}</FormFeedback>
                                 </FormGroup>
