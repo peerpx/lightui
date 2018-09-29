@@ -4,6 +4,7 @@ import { Button, Card, CardTitle, Col, Form, FormFeedback, FormGroup, Label, Inp
 
 import { displayMsg, hideMsg } from "../redux/actions";
 import { authSignIn, authUsernameIsAvailable } from '../helpers/api'
+import { isAlphanumeric } from '../helpers/validate'
 
 
 const mapDispatchToProps = {
@@ -52,18 +53,23 @@ class SignIn extends React.Component {
     // username stuff
     // when username input loose focus
     handleInpUsernameOnBlur = () => {
-        if (this.validateUsername()){
+        if (this.validateUsername()) {
             this.checkUsernameAvailability()
         }
     }
 
     validateUsername = () => {
         // todo only alphanum
+        let username = this.state.username
         // username
-        if (this.state.username.length < 4) {
-            this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: 'username should be at least 4 char long' })
+        if (username.length < 4) {
+            this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: 'username must be at least 4 char long' })
+            return false
+        } else if (isAlphanumeric(username) === false) {
+            this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: 'username must be alphanumeric' })
             return false
         }
+        this.setState({ inpUsernameIsValid: true, inpUsernameFeedback: '' })
         return true
     }
 
@@ -97,7 +103,7 @@ class SignIn extends React.Component {
                                 <FormGroup>
                                     <Label for="inpUsername">Username</Label>
                                     <Input type="text" name="username" id="inpUsername" placeholder="wanted username" value={this.state.username} onChange={this.handleChange} onBlur={this.handleInpUsernameOnBlur} valid={this.state.inpUsernameIsValid} invalid={!this.state.inpUsernameIsValid} />
-                                    <FormFeedback valid>Sweet! that username is available</FormFeedback>
+                                    <FormFeedback valid></FormFeedback>
                                     <FormFeedback>{this.state.inpUsernameFeedback}</FormFeedback>
                                 </FormGroup>
                                 <FormGroup>
