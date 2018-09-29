@@ -5,6 +5,7 @@ import { Button, Card, CardTitle, Col, Form, FormFeedback, FormGroup, Label, Inp
 import { displayMsg, hideMsg } from "../redux/actions";
 import { authSignIn, authUsernameIsAvailable } from '../helpers/api'
 import { isAlphanumeric } from '../helpers/validate'
+import debounce from 'lodash/debounce';
 
 
 const mapDispatchToProps = {
@@ -44,22 +45,14 @@ class SignIn extends React.Component {
             [name]: value
         }, () => {
             // validate username
-            if (name === 'username') this.validateUsername()
+            if (name === 'username') {this.checkUsernameAvailabilityDebounced()}
             // todo validate email && passwd
         }
         )
     }
 
     // username stuff
-    // when username input loose focus
-    handleInpUsernameOnBlur = () => {
-        if (this.validateUsername()) {
-            this.checkUsernameAvailability()
-        }
-    }
-
     validateUsername = () => {
-        // todo only alphanum
         let username = this.state.username
         // username
         if (username.length < 4) {
@@ -68,6 +61,8 @@ class SignIn extends React.Component {
         } else if (isAlphanumeric(username) === false) {
             this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: 'username must be alphanumeric' })
             return false
+        } else {
+
         }
         this.setState({ inpUsernameIsValid: true, inpUsernameFeedback: '' })
         return true
@@ -86,6 +81,8 @@ class SignIn extends React.Component {
                 this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: '' })
             })
     }
+    // debounced
+    checkUsernameAvailabilityDebounced = debounce(this.checkUsernameAvailability, 250)
 
     handleSubmit = (e) => {
         e.preventDefault()
@@ -102,7 +99,7 @@ class SignIn extends React.Component {
                             <Form onSubmit={this.handleSubmit}>
                                 <FormGroup>
                                     <Label for="inpUsername">Username</Label>
-                                    <Input type="text" name="username" id="inpUsername" placeholder="wanted username" value={this.state.username} onChange={this.handleChange} onBlur={this.handleInpUsernameOnBlur} valid={this.state.inpUsernameIsValid} invalid={!this.state.inpUsernameIsValid} />
+                                    <Input type="text" name="username" id="inpUsername" placeholder="wanted username" value={this.state.username} onChange={this.handleChange} valid={this.state.inpUsernameIsValid} invalid={!this.state.inpUsernameIsValid} />
                                     <FormFeedback valid></FormFeedback>
                                     <FormFeedback>{this.state.inpUsernameFeedback}</FormFeedback>
                                 </FormGroup>
