@@ -63,8 +63,7 @@ class SignIn extends React.Component {
                 })
             })().then(() => {
                 this.updateFormIsValid()
-            }
-            )
+            })
         })
     }
 
@@ -158,7 +157,7 @@ class SignIn extends React.Component {
                                     <Input type="email" name="email" id="inpEmail" placeholder="your email" value={this.state.email} onChange={this.handleChange} valid={this.state.inpEmailIsValid} invalid={!this.state.inpEmailIsValid} />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label for="inpPassword" style={{ display: 'block' }}>Password <span className="float-right" onClick={this.handleTogglePasswordVisibility}><FontAwesomeIcon icon={['fas', icon]} /></span></Label>
+                                    <Label className="displayBlock" for="inpPassword">Password <span className="float-right faPasswordIsVisible" onClick={this.handleTogglePasswordVisibility}><FontAwesomeIcon icon={['fas', icon]} /></span></Label>
                                     <Input type={inpPasswordType} name="password" id="inpPassword" placeholder="pick a password" value={this.state.password} onChange={this.handleChange} valid={this.state.inpPasswordIsValid} invalid={!this.state.inpPasswordIsValid} />
                                     <FormFeedback>{this.state.inpPasswordFeedback}</FormFeedback>
                                 </FormGroup>

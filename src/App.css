@@ -9,6 +9,10 @@ body {
     text-align: center;
 }
 
+.displayBlock {
+    display: block;
+}
+
 
 /* Brand */
 
@@ -122,4 +126,9 @@ footer button {
 .card-login {
     margin-top: 5rem;
     margin-bottom: 5rem;
+}
+
+/* signin */
+.faPasswordIsVisible {
+    cursor: pointer;
 }
