@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button, Card, CardTitle, Col, Form, FormFeedback, FormGroup, Label, Input, Row, } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { displayMsg, hideMsg } from "../redux/actions";
 import { authSignIn, authUsernameIsAvailable } from '../helpers/api'
-import { isAlphanumeric } from '../helpers/validate'
+import { emojiRe, isValidEmail } from '../helpers/validate'
 import debounce from 'lodash/debounce';
 
 
@@ -22,33 +23,49 @@ class SignIn extends React.Component {
             inpUsernameIsValid: false,
             inpUsernameFeedback: '',
             email: '',
-            password: ''
+            inpEmailIsValid: false,
+            password: '',
+            inpPasswordIsValid: false,
+            inpPasswordFeedback: '',
+            inpPasswordIsVisible: false,
+            formIsValid: false
         }
-
-        //this.handleChange = this.handleChange.bind(this)
-        //this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    componentDidMount() {
-        // todo: load a set of photos
-
-        //this.props.displayMsg("danger", "Hello world")
-    }
 
     handleChange = (e) => {
         const name = e.target.name
         let value = e.target.value
         if (name === 'email' || name === 'username') {
-            value = value.toLowerCase().trim()
+            value = value.toLowerCase().replace(/ /g, '')
+            value = value.replace(emojiRe, '')
         }
         this.setState({
             [name]: value
         }, () => {
-            // validate username
-            if (name === 'username') {this.checkUsernameAvailabilityDebounced()}
-            // todo validate email && passwd
-        }
-        )
+            (async () => {
+                return new Promise(resolve => {
+                    // validate username            
+                    if (name === 'username') {
+                        this.validateUsername()
+                    }
+
+                    // validate email
+                    else if (name === "email") {
+                        this.validateEmail()
+                    }
+
+                    // validate password
+                    else if (name === 'password') {
+                        this.validatePassword()
+                    }
+                    resolve()
+                })
+            })().then(() => {
+                this.updateFormIsValid()
+            }
+            )
+        })
     }
 
     // username stuff
@@ -57,19 +74,14 @@ class SignIn extends React.Component {
         // username
         if (username.length < 4) {
             this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: 'username must be at least 4 char long' })
-            return false
-        } else if (isAlphanumeric(username) === false) {
-            this.setState({ inpUsernameIsValid: false, inpUsernameFeedback: 'username must be alphanumeric' })
-            return false
-        } else {
-
+            return
         }
-        this.setState({ inpUsernameIsValid: true, inpUsernameFeedback: '' })
-        return true
+        this.checkUsernameAvailabilityDebounced()
     }
 
     // check if username is available
     checkUsernameAvailability = () => {
+        if (this.state.username.length < 1) return
         authUsernameIsAvailable(this.state.username)
             .then((response) => {
                 if (response.data.success) {
@@ -82,14 +94,52 @@ class SignIn extends React.Component {
             })
     }
     // debounced
-    checkUsernameAvailabilityDebounced = debounce(this.checkUsernameAvailability, 250)
+    checkUsernameAvailabilityDebounced = debounce(this.checkUsernameAvailability, 500)
+
+    // email validation
+    validateEmail = () => {
+        if (isValidEmail(this.state.email)) {
+            this.setState({ inpEmailIsValid: true })
+        } else {
+            this.setState({ inpEmailIsValid: false })
+        }
+    }
+
+    // password validation
+    validatePassword = () => {
+        if (this.state.password.length < 6) {
+            this.setState({ inpPasswordIsValid: false, inpPasswordFeedback: 'username must be at least 6 char long' })
+        } else {
+            this.setState({ inpPasswordIsValid: true, inpPasswordFeedback: '' })
+        }
+    }
+
+    updateFormIsValid = () => {
+        if (this.state.inpUsernameIsValid && this.state.inpEmailIsValid && this.state.inpPasswordIsValid) {
+            this.setState({ formIsValid: true })
+        } else {
+            this.setState({ formIsValid: false })
+        }
+    }
+
+
+    handleTogglePasswordVisibility = () => {
+        this.setState(state => ({
+            inpPasswordIsVisible: !state.inpPasswordIsVisible
+        }))
+    }
 
     handleSubmit = (e) => {
         e.preventDefault()
         authSignIn(this.state.username, this.state.email, this.state.password)
     }
 
+
+
+
     render() {
+        let icon = this.state.inpPasswordIsVisible ? 'eye-slash' : 'eye'
+        let inpPasswordType = this.state.inpPasswordIsVisible ? 'text' : 'password'
         return (
             <main>
                 <Row className="justify-content-center">
@@ -105,14 +155,14 @@ class SignIn extends React.Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="inpEmail">Email</Label>
-                                    <Input type="email" name="email" id="inpEmail" placeholder="your email" value={this.state.email} onChange={this.handleChange} />
-
+                                    <Input type="email" name="email" id="inpEmail" placeholder="your email" value={this.state.email} onChange={this.handleChange} valid={this.state.inpEmailIsValid} invalid={!this.state.inpEmailIsValid} />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label for="inpPassword">Password</Label>
-                                    <Input type="password" name="password" id="inpPassword" placeholder="pick a password" value={this.state.password} onChange={this.handleChange} />
+                                    <Label for="inpPassword" style={{ display: 'block' }}>Password <span className="float-right" onClick={this.handleTogglePasswordVisibility}><FontAwesomeIcon icon={['fas', icon]} /></span></Label>
+                                    <Input type={inpPasswordType} name="password" id="inpPassword" placeholder="pick a password" value={this.state.password} onChange={this.handleChange} valid={this.state.inpPasswordIsValid} invalid={!this.state.inpPasswordIsValid} />
+                                    <FormFeedback>{this.state.inpPasswordFeedback}</FormFeedback>
                                 </FormGroup>
-                                <Button color="primary" disabled={!this.state.inpUsernameIsValid}>Sign Up !</Button>
+                                <Button color="primary" disabled={!this.state.formIsValid}>Sign Up !</Button>
                             </Form>
                         </Card>
                     </Col>
