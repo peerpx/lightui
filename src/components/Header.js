@@ -1,6 +1,7 @@
 // todo hamburger
 
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {
     Button,
     Navbar,
@@ -19,18 +20,18 @@ class Header extends React.Component {
                     <NavbarBrand href="/"><span className="peerpx-head">Peer</span><span className="align-top peerpx-tail">px</span></NavbarBrand>
                     <Nav className="mr-auto" navbar>
                         <NavItem>
-                            <NavLink href="/">Discover</NavLink>
+                            <NavLink tag={Link} to="/">Discover</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/">About</NavLink>
+                            <NavLink tag={Link} to="/">About</NavLink>
                         </NavItem>
                     </Nav>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink href="/">Log in</NavLink>
+                            <NavLink tag={Link} to="/login">Log in</NavLink>
                         </NavItem>
                         <NavItem>
-                            <Button color="primary">Sign up</Button>
+                            <Button tag={Link} to="/signin" color="primary">Sign up</Button>
                         </NavItem>
                     </Nav>
                 </Navbar>

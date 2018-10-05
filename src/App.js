@@ -5,6 +5,9 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import Home from './containers/Home'
+import SigIn from './containers/Signin'
+import Login from './containers/Login'
+
 import NotFound from './containers/NotFound'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,7 +22,8 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/signin' component={Home} />
+        <Route exact path='/signin' component={SigIn} />
+        <Route exact path='/login' component={Login} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

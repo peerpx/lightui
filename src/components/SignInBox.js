@@ -127,10 +127,9 @@ class SignInBox extends React.Component {
 
 
     render() {
-        let icon = this.state.inpPasswordIsVisible ? 'eye-slash' : 'eye'
-        let inpPasswordType = this.state.inpPasswordIsVisible ? 'text' : 'password'
-        let formIsValid = this.updateFormIsValid()
-        // insert microchip supermicro *here*
+        const icon = this.state.inpPasswordIsVisible ? 'eye-slash' : 'eye'
+        const inpPasswordType = this.state.inpPasswordIsVisible ? 'text' : 'password'
+        const formIsValid = this.updateFormIsValid()
 
         return (
             <main>
