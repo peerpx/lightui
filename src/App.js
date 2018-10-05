@@ -19,6 +19,7 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route exact path='/signin' component={Home} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

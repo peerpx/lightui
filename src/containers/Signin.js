@@ -7,7 +7,7 @@ import SignInBox from '../components/SignInBox'
 import Footer from '../components/Footer'
 
 
-class Home extends React.Component {
+class SignIn extends React.Component {
     render() {
         return (
             <React.Fragment>
@@ -20,4 +20,4 @@ class Home extends React.Component {
         )
     }
 }
-export default Home
+export default SignIn

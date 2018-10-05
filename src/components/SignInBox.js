@@ -15,7 +15,8 @@ const mapDispatchToProps = {
 }
 
 
-class SignIn extends React.Component {
+class SignInBox extends React.Component {
+
     constructor(props) {
         super(props)
         this.state = {
@@ -32,7 +33,6 @@ class SignIn extends React.Component {
         }
     }
 
-
     handleChange = (e) => {
         const name = e.target.name
         let value = e.target.value
@@ -40,30 +40,18 @@ class SignIn extends React.Component {
             value = value.toLowerCase().replace(/ /g, '')
             value = value.replace(emojiRe, '')
         }
+
         this.setState({
             [name]: value
         }, () => {
-            (async () => {
-                return new Promise(resolve => {
-                    // validate username            
-                    if (name === 'username') {
-                        this.validateUsername()
-                    }
+            // validate username            
+            if (name === 'username') this.validateUsername()
 
-                    // validate email
-                    else if (name === "email") {
-                        this.validateEmail()
-                    }
+            // validate email
+            if (name === "email") this.validateEmail()
 
-                    // validate password
-                    else if (name === 'password') {
-                        this.validatePassword()
-                    }
-                    resolve()
-                })
-            })().then(() => {
-                this.updateFormIsValid()
-            })
+            // validate password
+            if (name === 'password') this.validatePassword()
         })
     }
 
@@ -115,9 +103,11 @@ class SignIn extends React.Component {
 
     updateFormIsValid = () => {
         if (this.state.inpUsernameIsValid && this.state.inpEmailIsValid && this.state.inpPasswordIsValid) {
-            this.setState({ formIsValid: true })
+            return true
+            //this.setState({ formIsValid: true })
         } else {
-            this.setState({ formIsValid: false })
+            return false
+            //this.setState({ formIsValid: false })
         }
     }
 
@@ -139,6 +129,9 @@ class SignIn extends React.Component {
     render() {
         let icon = this.state.inpPasswordIsVisible ? 'eye-slash' : 'eye'
         let inpPasswordType = this.state.inpPasswordIsVisible ? 'text' : 'password'
+        let formIsValid = this.updateFormIsValid()
+        // insert microchip supermicro *here*
+
         return (
             <main>
                 <Row className="justify-content-center">
@@ -161,7 +154,7 @@ class SignIn extends React.Component {
                                     <Input type={inpPasswordType} name="password" id="inpPassword" placeholder="pick a password" value={this.state.password} onChange={this.handleChange} valid={this.state.inpPasswordIsValid} invalid={!this.state.inpPasswordIsValid} />
                                     <FormFeedback>{this.state.inpPasswordFeedback}</FormFeedback>
                                 </FormGroup>
-                                <Button color="primary" disabled={!this.state.formIsValid}>Sign Up !</Button>
+                                <Button color="primary" disabled={!formIsValid}>Sign Up !</Button>
                             </Form>
                         </Card>
                     </Col>
@@ -171,4 +164,4 @@ class SignIn extends React.Component {
     }
 }
 
-export default connect(null, mapDispatchToProps)(SignIn)
+export default connect(null, mapDispatchToProps)(SignInBox)
