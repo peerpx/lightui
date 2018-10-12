@@ -13,6 +13,9 @@ body {
     display: block;
 }
 
+.font-small {
+    font-size: 0.85rem;
+}
 
 /* Brand */
 
@@ -89,10 +92,11 @@ footer button {
 /* msgbox */
 
 #msg-box {
-    z-index: 500;
-    position: fixed;
-    padding: 1rem;
     width: 100%;
+}
+
+.alert {
+    margin-bottom: 0;
 }
 
 /* Loader */
@@ -122,11 +126,6 @@ footer button {
 
 
 /* Login */
-
-.card-login {
-    margin-top: 5rem;
-    margin-bottom: 5rem;
-}
 
 /* signin */
 .faPasswordIsVisible {

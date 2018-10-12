@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Card, CardTitle, Col, Form, FormFeedback, FormGroup, Label, Input, Row, } from 'reactstrap'
+import { Button, Card, CardBody, CardTitle, Col, Form, FormFeedback, FormGroup, Label, Input, Row, } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { displayMsg, hideMsg } from "../redux/actions";
@@ -134,26 +134,28 @@ class SignInBox extends React.Component {
             <main>
                 <Row className="justify-content-center">
                     <Col md="8" lg="4" >
-                        <Card body className="card-login">
-                            <CardTitle className="center">Create an account</CardTitle>
-                            <Form onSubmit={this.handleSubmit}>
-                                <FormGroup>
-                                    <Label for="inpUsername">Username</Label>
-                                    <Input type="text" name="username" id="inpUsername" placeholder="wanted username" value={this.state.username} onChange={this.handleChange} valid={this.state.inpUsernameIsValid} invalid={!this.state.inpUsernameIsValid} />
-                                    <FormFeedback valid></FormFeedback>
-                                    <FormFeedback>{this.state.inpUsernameFeedback}</FormFeedback>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="inpEmail">Email</Label>
-                                    <Input type="email" name="email" id="inpEmail" placeholder="your email" value={this.state.email} onChange={this.handleChange} valid={this.state.inpEmailIsValid} invalid={!this.state.inpEmailIsValid} />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label className="displayBlock" for="inpPassword">Password <span className="float-right faPasswordIsVisible" onClick={this.handleTogglePasswordVisibility}><FontAwesomeIcon icon={['fas', icon]} /></span></Label>
-                                    <Input type={inpPasswordType} name="password" id="inpPassword" placeholder="pick a password" value={this.state.password} onChange={this.handleChange} valid={this.state.inpPasswordIsValid} invalid={!this.state.inpPasswordIsValid} />
-                                    <FormFeedback>{this.state.inpPasswordFeedback}</FormFeedback>
-                                </FormGroup>
-                                <Button color="primary" className="float-right" disabled={!formIsValid}>Sign Up !</Button>
-                            </Form>
+                        <Card className="mb-5 mt-5 shadow">
+                            <CardBody>
+                                <CardTitle className="center">Create an account</CardTitle>
+                                <Form onSubmit={this.handleSubmit}>
+                                    <FormGroup>
+                                        <Label for="inpUsername">Username</Label>
+                                        <Input type="text" name="username" id="inpUsername" placeholder="wanted username" value={this.state.username} onChange={this.handleChange} valid={this.state.inpUsernameIsValid} invalid={!this.state.inpUsernameIsValid} />
+                                        <FormFeedback valid></FormFeedback>
+                                        <FormFeedback>{this.state.inpUsernameFeedback}</FormFeedback>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="inpEmail">Email</Label>
+                                        <Input type="email" name="email" id="inpEmail" placeholder="your email" value={this.state.email} onChange={this.handleChange} valid={this.state.inpEmailIsValid} invalid={!this.state.inpEmailIsValid} />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label className="displayBlock" for="inpPassword">Password <span className="float-right faPasswordIsVisible" onClick={this.handleTogglePasswordVisibility}><FontAwesomeIcon icon={['fas', icon]} /></span></Label>
+                                        <Input type={inpPasswordType} name="password" id="inpPassword" placeholder="pick a password" value={this.state.password} onChange={this.handleChange} valid={this.state.inpPasswordIsValid} invalid={!this.state.inpPasswordIsValid} />
+                                        <FormFeedback>{this.state.inpPasswordFeedback}</FormFeedback>
+                                    </FormGroup>
+                                    <Button color="primary" className="float-right" disabled={!formIsValid}>Sign Up !</Button>
+                                </Form>
+                            </CardBody>
                         </Card>
                     </Col>
                 </Row>

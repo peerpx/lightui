@@ -66,3 +66,10 @@ export const ApiAuthUsernameIsAvailable = (username) => {
 export const ApiAuthLogin = (login, password) => {
     return client.post('user/login', { 'login': login, 'password': password })
 }
+
+// reclaim to reset password
+// server will send an email with HTTP link where usre can reset
+// his password
+export const ApiAuthPasswordLost = (email) => {
+    return client.get(`user/password-lost/${email}`)
+}

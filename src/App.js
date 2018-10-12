@@ -9,7 +9,9 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Home from './containers/Home'
 import SigIn from './containers/Signin'
 import Login from './containers/Login'
+import PasswordLost from './containers/PasswordLost'
 import Logout from './containers/Logout'
+
 
 import NotFound from './containers/NotFound'
 
@@ -27,6 +29,7 @@ const App = () => {
         <Route exact path='/' component={Home} />
         <Route exact path='/signin' component={SigIn} />
         <Route exact path='/login' component={Login} />
+        <Route exact path='/password-lost' component={PasswordLost} />
         <Route exact path='/logout' component={Logout} />
         <ProtectedRoute path='/dashboard' component={Home} />
         <Route component={NotFound} />

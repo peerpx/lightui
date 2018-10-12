@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Button, Card, CardText, CardTitle, Col, Form, FormGroup, Label, NavLink, Input, Row, } from 'reactstrap'
+import { Button, Card, CardBody, CardText, CardTitle, Col, Form, FormGroup, Label, Input, Row, } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { displayMsg, hideMsg, logIn } from '../redux/actions'
@@ -77,22 +77,24 @@ class LoginBox extends React.Component {
             <main>
                 <Row className="justify-content-center">
                     <Col md="8" lg="4" >
-                        <Card body className="card-login">
-                            <CardTitle className="center">Login</CardTitle>
-                            <Form onSubmit={this.handleSubmit}>
-                                <FormGroup>
-                                    <Label for="inpUsername">Username</Label>
-                                    <Input type="text" name="username" id="inpUsername" placeholder="Your username" value={this.state.username} onChange={this.handleChange} valid={this.state.inpUsernameIsValid} invalid={!this.state.inpUsernameIsValid} />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label className="displayBlock" for="inpPassword">Password <span className="float-right faPasswordIsVisible" onClick={this.handleTogglePasswordVisibility}><FontAwesomeIcon icon={['fas', icon]} /></span></Label>
-                                    <Input type={inpPasswordType} name="password" id="inpPassword" placeholder="Your password" value={this.state.password} onChange={this.handleChange} valid={this.state.inpPasswordIsValid} invalid={!this.state.inpPasswordIsValid} />
-                                </FormGroup>
-                                <Button color="primary" className="float-right" disabled={!formIsValid}>Log in</Button>
-                            </Form>
-                            <CardText className="text-center">
-                                <NavLink tag={Link} to="/" className="text-muted">Password lost ?</NavLink>
-                            </CardText>
+                        <Card className="mb-5 mt-5 shadow">
+                            <CardBody>
+                                <CardTitle className="center">Login</CardTitle>
+                                <Form onSubmit={this.handleSubmit}>
+                                    <FormGroup>
+                                        <Label for="inpUsername">Username</Label>
+                                        <Input type="text" name="username" id="inpUsername" placeholder="Your username" value={this.state.username} onChange={this.handleChange} valid={this.state.inpUsernameIsValid} invalid={!this.state.inpUsernameIsValid} />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label className="displayBlock" for="inpPassword">Password <span className="float-right faPasswordIsVisible" onClick={this.handleTogglePasswordVisibility}><FontAwesomeIcon icon={['fas', icon]} /></span></Label>
+                                        <Input type={inpPasswordType} name="password" id="inpPassword" placeholder="Your password" value={this.state.password} onChange={this.handleChange} valid={this.state.inpPasswordIsValid} invalid={!this.state.inpPasswordIsValid} />
+                                    </FormGroup>
+                                    <Button color="primary" className="float-right" disabled={!formIsValid}>Log in</Button>
+                                </Form>
+                                <CardText className="text-center">
+                                    <Link to="/password-lost" href="" className="text-muted font-small">Password lost</Link>
+                                </CardText>
+                            </CardBody>
                         </Card>
                     </Col>
                 </Row>
