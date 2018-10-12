@@ -53,12 +53,16 @@ client.interceptors.response.use(
 )
 
 // sign in 
-export const authSignIn = (username, email, password) => {
+export const ApiAuthSignIn = (username, email, password) => {
     return client.post('user', { 'username': username, 'email': email, 'password': password })
 }
 
 // check username availability
-export const authUsernameIsAvailable = (username) => {
+export const ApiAuthUsernameIsAvailable = (username) => {
     return client.get(`user/${username}/is-available`)
 }
 
+// log in 
+export const ApiAuthLogin = (login, password) => {
+    return client.post('user/login', { 'login': login, 'password': password })
+}

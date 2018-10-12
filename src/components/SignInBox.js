@@ -4,10 +4,9 @@ import { Button, Card, CardTitle, Col, Form, FormFeedback, FormGroup, Label, Inp
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { displayMsg, hideMsg } from "../redux/actions";
-import { authSignIn, authUsernameIsAvailable } from '../helpers/api'
+import { ApiAuthSignIn, ApiAuthUsernameIsAvailable } from '../helpers/api'
 import { emojiRe, isValidEmail } from '../helpers/validate'
 import debounce from 'lodash/debounce';
-
 
 const mapDispatchToProps = {
     displayMsg,
@@ -45,7 +44,7 @@ class SignInBox extends React.Component {
             [name]: value
         }, () => {
             // validate username            
-            if (name === 'username') this.validateUsername()
+            if (name === 'username') this.validateUsername();
 
             // validate email
             if (name === "email") this.validateEmail()
@@ -69,7 +68,7 @@ class SignInBox extends React.Component {
     // check if username is available
     checkUsernameAvailability = () => {
         if (this.state.username.length < 1) return
-        authUsernameIsAvailable(this.state.username)
+        ApiAuthUsernameIsAvailable(this.state.username)
             .then((response) => {
                 if (response.data.success) {
                     this.setState({ inpUsernameIsValid: true, inpUsernameFeedback: '' })
@@ -120,7 +119,7 @@ class SignInBox extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        authSignIn(this.state.username, this.state.email, this.state.password)
+        ApiAuthSignIn(this.state.username, this.state.email, this.state.password)
     }
 
 
@@ -153,7 +152,7 @@ class SignInBox extends React.Component {
                                     <Input type={inpPasswordType} name="password" id="inpPassword" placeholder="pick a password" value={this.state.password} onChange={this.handleChange} valid={this.state.inpPasswordIsValid} invalid={!this.state.inpPasswordIsValid} />
                                     <FormFeedback>{this.state.inpPasswordFeedback}</FormFeedback>
                                 </FormGroup>
-                                <Button color="primary" disabled={!formIsValid}>Sign Up !</Button>
+                                <Button color="primary" className="float-right" disabled={!formIsValid}>Sign Up !</Button>
                             </Form>
                         </Card>
                     </Col>

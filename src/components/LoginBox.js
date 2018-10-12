@@ -1,10 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Card, CardTitle, Col, Form, FormGroup, Label, Input, Row, } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import { Button, Card, CardText, CardTitle, Col, Form, FormGroup, Label, NavLink, Input, Row, } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { displayMsg, hideMsg } from '../redux/actions'
 
+import { ApiAuthLogin } from '../helpers/api'
 
 const mapDispatchToProps = {
     displayMsg,
@@ -13,7 +15,6 @@ const mapDispatchToProps = {
 
 
 class LoginBox extends React.Component {
-
     constructor(props) {
         super(props)
         this.state = {
@@ -57,6 +58,17 @@ class LoginBox extends React.Component {
         }))
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault()
+        ApiAuthLogin(this.state.username, this.state.password)
+            .then(response => {
+                console.log('RESP: ', response)
+            })
+            .catch(err => {
+                console.log('ERR', err)
+            })
+    }
+
     render() {
         const icon = this.state.inpPasswordIsVisible ? 'eye-slash' : 'eye'
         const inpPasswordType = this.state.inpPasswordIsVisible ? 'text' : 'password'
@@ -77,8 +89,11 @@ class LoginBox extends React.Component {
                                     <Label className="displayBlock" for="inpPassword">Password <span className="float-right faPasswordIsVisible" onClick={this.handleTogglePasswordVisibility}><FontAwesomeIcon icon={['fas', icon]} /></span></Label>
                                     <Input type={inpPasswordType} name="password" id="inpPassword" placeholder="Your password" value={this.state.password} onChange={this.handleChange} valid={this.state.inpPasswordIsValid} invalid={!this.state.inpPasswordIsValid} />
                                 </FormGroup>
-                                <Button color="primary" disabled={!formIsValid}>Log in</Button>
+                                <Button color="primary" className="float-right" disabled={!formIsValid}>Log in</Button>
                             </Form>
+                            <CardText className="text-center">
+                                <NavLink tag={Link} to="/" className="text-muted">Password lost ?</NavLink>
+                            </CardText>
                         </Card>
                     </Col>
                 </Row>
