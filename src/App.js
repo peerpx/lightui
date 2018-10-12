@@ -4,6 +4,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
+import ProtectedRoute from './components/ProtectedRoute'
+
 import Home from './containers/Home'
 import SigIn from './containers/Signin'
 import Login from './containers/Login'
@@ -24,6 +26,7 @@ const App = () => {
         <Route exact path='/' component={Home} />
         <Route exact path='/signin' component={SigIn} />
         <Route exact path='/login' component={Login} />
+        <ProtectedRoute path='/dashboard' component={Home} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
