@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import { Button, Card, CardText, CardTitle, Col, Form, FormGroup, Label, NavLink, Input, Row, } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { displayMsg, hideMsg } from '../redux/actions'
+import { displayMsg, hideMsg, logIn } from '../redux/actions'
 
 import { ApiAuthLogin } from '../helpers/api'
 
 const mapDispatchToProps = {
     displayMsg,
-    hideMsg
+    hideMsg,
+    logIn
 }
 
 
@@ -62,10 +63,8 @@ class LoginBox extends React.Component {
         e.preventDefault()
         ApiAuthLogin(this.state.username, this.state.password)
             .then(response => {
-                console.log('RESP: ', response)
-            })
-            .catch(err => {
-                console.log('ERR', err)
+                this.props.logIn(response.data.data.username)
+                this.setState({ username: '', password: '' })
             })
     }
 

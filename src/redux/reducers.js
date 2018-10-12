@@ -4,7 +4,8 @@ const initialState = {
     msgBoxIsOpen: false,
     msgBoxColor: '',
     msgBoxMsg: '',
-    loaderIsVisible: false
+    loaderIsVisible: false,
+    username: localStorage.getItem('username') || null
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -17,6 +18,10 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, loaderIsVisible: true }
         case c.HIDE_LOADER:
             return { ...state, loaderIsVisible: false }
+        case c.LOGIN:
+            return { ...state, username: action.username }
+        case c.LOGOUT:
+            return { ...state, username: null }
         default:
             return state
     }
