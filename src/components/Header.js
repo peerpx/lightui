@@ -10,6 +10,13 @@ import {
     NavItem,
     NavLink,
 } from 'reactstrap'
+import { connect } from 'react-redux'
+
+const mapStateToProps = (state) => {
+    return {
+        isLogged: state.username !== null
+    }
+}
 
 // Header
 class Header extends React.Component {
@@ -26,17 +33,27 @@ class Header extends React.Component {
                             <NavLink tag={Link} to="/">About</NavLink>
                         </NavItem>
                     </Nav>
-                    <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <NavLink tag={Link} to="/login">Log in</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <Button tag={Link} to="/signin" color="primary">Sign up</Button>
-                        </NavItem>
-                    </Nav>
+                    {this.props.isLogged ? (
+                        <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <NavLink tag={Link} to="/logout">Logout</NavLink>
+                            </NavItem>
+                        </Nav >
+                    ) : (
+                            <Nav className="ml-auto" navbar>
+                                <NavItem>
+                                    <NavLink tag={Link} to="/login">Log in</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <Button tag={Link} to="/signin" color="primary">Sign up</Button>
+                                </NavItem>
+                            </Nav >
+                        )
+                    }
                 </Navbar>
-            </header>
+            </header >
         );
     }
 }
-export default Header;
+
+export default connect(mapStateToProps)(Header)
