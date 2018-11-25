@@ -41,7 +41,7 @@ class PasswordLostCard extends React.Component {
                                         <Label for="inpEmail">Your email address:</Label>
                                         <Input type="email" name="email" id="inpUsername" placeholder="you@domain.tld" value={this.state.email} onChange={this.handleChange} valid={this.state.inpEmailIsValid} invalid={!this.state.inpEmailIsValid} />
                                     </FormGroup>
-                                    <Button color="primary" className="float-right mt-3" disabled={!this.state.inpEmailIsValid}>Recover my password</Button>
+                                    <Button color="primary" className="float-right mt-3" disabled={!this.state.inpEmailIsValid}>Reset my password</Button>
                                 </Form>
                             </CardBody>
                         </Card>
